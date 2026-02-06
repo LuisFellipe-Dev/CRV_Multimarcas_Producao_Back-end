@@ -1,0 +1,1 @@
+{"version":3,"file":"storage.controller.d.ts","sourceRoot":"","sources":["storage.controller.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAGhD,eAAO,MAAM,iBAAiB;eACX,OAAO,OAAO,QAAQ;eAUtB,OAAO,OAAO,QAAQ;gBAkBrB,OAAO,OAAO,QAAQ;CAYzC,CAAA"}

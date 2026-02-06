@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Item {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  Brand       String
+  Model       String
+  Size        String
+  Description String
+  Status      String
+  sales       Sale[]
+}
+
+model Customer {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  Name    String
+  Contact String
+  Debt    Float
+  Status  String
+  sales   Sale[]
+}
+
+model Sale {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  CustomerId String @db.ObjectId
+  ItemId     String @db.ObjectId
+  CashflowId String? @db.ObjectId @unique
+  Value      Float
+  Type       String
+  Date       String
+
+  Customer Customer @relation(fields: [CustomerId], references: [id])
+  Item     Item     @relation(fields: [ItemId], references: [id])
+  Cashflow Cashflow? @relation(fields: [CashflowId], references: [id], onDelete: Cascade)
+}
+
+model Cashflow {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  Description String
+  Value       Float
+  Operation   String
+  Type        String
+  Date        String
+  Sale        Sale? 
+}
+
+model Account {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  Bank  Float
+  Cash  Float
+  Month Int
+  Year  Int
+
+  @@unique([Month, Year])
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  User String
+  Password String
+}
